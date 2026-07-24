@@ -151,10 +151,10 @@ export const updateOwnerRestaurant = async (req: AuthRequest, res: Response): Pr
 export const getOwnerBookings = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
    const restaurant = await Restaurant.findOne({owner: req.user?._id});
-    if (!restaurant){
-        res.status(404).json({message: error.message});
-        return;
-    }
+   if (!restaurant) {
+    res.status(404).json({ message: "Restaurant profile not found" });
+    return;
+}
 
     const bookings = await Booking.find({restaurant: restaurant._id}).populate("user", "name email phone").sort({date: -1, time: -1})
 
